@@ -4,11 +4,16 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+type NetworkState string
+
 const (
 	// NetworkResourcePlural is the plural of network resource.
 	NetworkResourcePlural = "networks"
 	// TenantResourcePlural is the plural of tenant resource.
 	TenantResourcePlural = "tenants"
+
+	NetworkStateCreated   NetworkState = "NetworkStateCreated"
+	NetworkStateProcessed NetworkState = "NetworkStateProcessed"
 )
 
 // Network describes a Neutron network.
@@ -19,7 +24,7 @@ type Network struct {
 	metav1.ObjectMeta `json:"metadata"`
 
 	// Spec describes the behavior of a network.
-	Spec NetworkSpec
+	Spec NetworkSpec `json:"spec"`
 	// Status describes the network status.
 	Status NetworkStatus `json:"status,omitempty"`
 }
@@ -38,7 +43,7 @@ type NetworkSpec struct {
 // NetworkStatus is the status of a network.
 type NetworkStatus struct {
 	// State describes the network state.
-	State string `json:"state,omitempty"`
+	State NetworkState `json:"state,omitempty"`
 	// Message describes why network is in current state.
 	Message string `json:"message,omitempty"`
 }
