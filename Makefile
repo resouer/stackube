@@ -12,8 +12,9 @@ BASE_DIR := $(shell basename $(PWD))
 # Keep an existing GOPATH, make a private one if it is undefined
 GOPATH_DEFAULT := $(PWD)/.go
 export GOPATH ?= $(GOPATH_DEFAULT)
-PKG := git.openstack.org/openstack/stackube
+PKG := github.com/openstack/stackube
 DEST := $(GOPATH)/src/$(PKG)
+OUTPUT := _output
 
 GOFLAGS :=
 TAGS :=
@@ -35,7 +36,7 @@ depend-update: work
 
 .PHONY: build
 build: depend
-	cd $(DEST) && go build $(GOFLAGS) -tags '$(TAGS)' -ldflags '$(LDFLAGS)' ./...
+	cd $(DEST) && go build $(GOFLAGS) -a -o $(OUTPUT)/stackube-controller ./cmd
 
 .PHONY: install
 install: depend
