@@ -524,6 +524,8 @@ func (os *OpenStack) CheckTenantID(tenantID string) (bool, error) {
 	opts := tenants.ListOpts{}
 	pager := tenants.List(os.identity, &opts)
 
+	glog.Errorf("harry debug tenantID: %v", tenantID)
+
 	var found bool
 	err := pager.EachPage(func(page pagination.Page) (bool, error) {
 
@@ -531,6 +533,8 @@ func (os *OpenStack) CheckTenantID(tenantID string) (bool, error) {
 		if err != nil {
 			return false, err
 		}
+
+		glog.Errorf("harry debug tenantList: %v", tenantList)
 
 		if len(tenantList) == 0 {
 			return false, ErrNotFound
