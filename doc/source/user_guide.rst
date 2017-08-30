@@ -168,9 +168,9 @@ Stackube is a standard upstream Kubernetes cluster, so any type of `Kubernetes v
       server: 10.244.1.4
       path: "/exports"
 
-Please note since Stackube is a baremetal k8s cluster, cloud provider based volume like GCE, AWS etc is not supported by default.
+Please note since Stackube is a baremetal k8s cluster, cloud provider based volume is not supported by default.
 
-But unless you are using emptyDir or hostPath, we will recommend always you the "Cinder RBD based block device as volume" described below in Stackube, this will bring you much higher performance.
+But unless you are using ``emptyDir`` or ``hostPath``, we recommend you always use the ``Cinder RBD based block device as volume`` described below in Stackube, this will bring you much higher performance.
 
 ==================================
 Cinder RBD based block device as volume
@@ -209,9 +209,9 @@ In Stackube, we use a flexvolume to directly use Cinder RBD based block device a
 
 Please note the name of flexvolume is: "cinder/flexvolume_driver". Users are expected to provide a valid volume ID created with Cinder beforehand. Then a related RBD device will be attached to the VM-based Pod.
 
-If your cluster is installed by stackube/devstack or following other stackube official guide, a /etc/kubernetes/cinder.conf file will be generated automatically on every node. 
+If your cluster is installed by ``stackube/devstack`` or following other stackube official guide, a ``/etc/kubernetes/cinder.conf`` file will be generated automatically on every node. 
 
-Otherwise, users are expected to write a /etc/kubernetes/cinder.conf on every node. The contents is like:
+Otherwise, users are expected to write a ``/etc/kubernetes/cinder.conf`` on every node. The contents is like:
 
 ::
 
@@ -225,4 +225,4 @@ Otherwise, users are expected to write a /etc/kubernetes/cinder.conf on every no
   keyring = _KEYRING_
 
 
-and also, users need to make sure flexvolume_driver binary is in /usr/libexec/kubernetes/kubelet-plugins/volume/exec/cinder~flexvolume_driver/ of every node.
+and also, users need to make sure flexvolume_driver binary is in ``/usr/libexec/kubernetes/kubelet-plugins/volume/exec/cinder~flexvolume_driver/`` of every node.
